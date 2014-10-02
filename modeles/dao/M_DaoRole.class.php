@@ -42,6 +42,15 @@ class M_DaoRole extends M_DaoGenerique {
     public function update($idMetier, $objetMetier) {
         return FALSE;
     }
+    
+    public function rechercheIdRole($libelle){
+        $sql= "SELECT IDROLE FROM Role WHERE libelle='".$libelle."';";
+        $queryPrepare = $this->pdo->prepare($sql);
+        $ListeRole=array();
+        $queryPrepare->execute($ListeRole);
+        $idRole = $ListeRole->fetch(PDO::FETCH_ASSOC);
+        return $idRole;
+    }
 
 }
 
