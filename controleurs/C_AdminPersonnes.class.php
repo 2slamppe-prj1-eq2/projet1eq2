@@ -34,21 +34,17 @@ class C_AdminPersonnes extends C_ControleurGenerique {
     
     //validation de création d'utilisateur 
     function validationcreerPersonne(){
-        $this->vue->titreVue = "Validation cr&eacute;ation de l'utilisateur";
-        $utilisateur = new M_LesDonneesCreationUtilisateur();
-        // préparer la liste des paramètres
-        $lesParametres = array();
-        $lesLogin = new M_ListeLogin();
-        $countLog="";
-        $countLog= $lesLogin->getCount($_POST["login"]);
-        //$this->vue->ListeLogin = $lesLogin->getCountLogin($_POST["login"]);
-        $msg='';    
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+        $this->vue->ecrireDonnee('titreVue', 'Cr&eacute;ation d\'une personne');
+        // ... depuis la BDD       
+        $daoPers = new M_DaoPersonne();
+        $daoPers->connecter();
+        $pdo = $daoPers->getPdo();    
         //vérifie si le login est présent dans la base de donnée si il ne l'est pas l'utilisateur est créé
        
       if($countLog->NB=="0"){
          
-        $lesParametres[0] = $utilisateur->getId('IDSPECIALITE', 'SPECIALITE', 'IDSPECIALITE', $_POST["option"]);
-        
+        $lesParametres[0] = $utilisateur->getId('IDSPECIALITE', 'SPECIALITE', 'IDSPECIALITE', $_POST["option"]); 
         $lesParametres[1] = $utilisateur->getId('IDROLE', 'ROLE', 'LIBELLE', $_POST["role"]);
         $lesParametres[2] = $_POST["civilite"];  
         $lesParametres[3] = $_POST["nom"];
@@ -56,11 +52,9 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $lesParametres[5] = $_POST["tel"];
         $lesParametres[6] = $_POST["mail"];
         $lesParametres[7] = $_POST["telP"];
-        
         $lesParametres[8] = $_POST["etudes"];
         $lesParametres[9] = $_POST["formation"];
         $lesParametres[10] = $_POST["entreprise1"];
-        
         $lesParametres[11] = $_POST["login"];
         $lesParametres[12] = sha1($_POST["mdp"]);
           
