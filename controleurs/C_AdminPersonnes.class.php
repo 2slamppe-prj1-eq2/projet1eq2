@@ -35,11 +35,13 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         
         //$this->vue->titreVue = "Validation cr&eacute;ation de l'utilisateur";     
         //$utilisateur->setId($id) = $utilisateur->getId('IDSPECIALITE', 'SPECIALITE', 'IDSPECIALITE', $_POST["option"]);
-        
+        $daoRole = new M_DaoRole();
+        $daoRole->connecter();
 
        
         // Mémoriser la liste des spécialités disponibles
-        $role = new M_Role(rechercheIdRole(filter_input(INPUT_POST, 'role')), rechercheIdRole(filter_input(INPUT_POST, 'role')), filter_input(INPUT_POST, 'role'));
+        
+        $role = $daoRole->getOneById(filter_input(INPUT_POST, 'role'));
         $specialite = filter_input(INPUT_POST, 'option');
         $civilite = filter_input(INPUT_POST, 'civilite');  
         $nom = filter_input(INPUT_POST, 'nom');
@@ -53,7 +55,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         //$utilisateur->set = $_POST["entreprise1"];
         
         $login = filter_input(INPUT_POST, 'login');
-        $mdp = sha1filter_input(INPUT_POST, 'mdp');
+        $mdp = sha1(filter_input(INPUT_POST, 'mdp'));
           
         $utilisateur = new M_Personne(999, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp );
         $daoPersonne = new M_DaoPersonne();
