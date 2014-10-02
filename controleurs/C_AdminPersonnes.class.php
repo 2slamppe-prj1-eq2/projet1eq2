@@ -69,7 +69,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
       
         if ($ok) {
             //$this->vue->message = "Utilisateur cr&eacute;&eacute;";
-            echo 'ca marche';
+            header('Location: ?controleur=AdminPersonnes&action=creerPersonne');
         } else {
             echo ' ça marche pas';
             //$this->vue->message = "Echec de l ajout de l utilisateur".$msg;
