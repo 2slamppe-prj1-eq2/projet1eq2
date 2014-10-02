@@ -39,26 +39,23 @@ class C_AdminPersonnes extends C_ControleurGenerique {
 
        
         // Mémoriser la liste des spécialités disponibles
-        $daoRole = new M_DaoRole();
-        $daoRole->connecter();
+        $role = new M_Role(rechercheIdRole(filter_input(INPUT_POST, 'role')), rechercheIdRole(filter_input(INPUT_POST, 'role')), filter_input(INPUT_POST, 'role'));
+        $specialite = filter_input(INPUT_POST, 'option');
+        $civilite = filter_input(INPUT_POST, 'civilite');  
+        $nom = filter_input(INPUT_POST, 'nom');
+        $prenom = filter_input(INPUT_POST, 'prenom');
+        $numTel = filter_input(INPUT_POST, 'tel');
+        $mail = filter_input(INPUT_POST, 'mail');
+        $mobile = filter_input(INPUT_POST, 'telP');
         
-        $role = $daoRole->getOneById($_POST['role']);
-        $specialite = $_POST["option"];
-        $civilite = $_POST["civilite"];  
-        $nom = $_POST["nom"];
-        $prenom = $_POST["prenom"];
-        $numTel = $_POST["tel"];
-        $mail = $_POST["mail"];
-        $mobile = $_POST["telP"];       
-        $etudes = $_POST["etudes"];
-        $formation = $_POST["formation"];
+        $etudes = filter_input(INPUT_POST, 'etudes');
+        $formation = filter_input(INPUT_POST, 'formation');
         //$utilisateur->set = $_POST["entreprise1"];
         
-        $login = $_POST["login"];
-        $mdp = sha1($_POST["mdp"]);
+        $login = filter_input(INPUT_POST, 'login');
+        $mdp = sha1filter_input(INPUT_POST, 'mdp');
           
         $utilisateur = new M_Personne(999, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp );
-        
         $daoPersonne = new M_DaoPersonne();
         $daoPersonne->setPdo($daoRole->getPdo());
         $ok = $daoPersonne->insert($utilisateur);
