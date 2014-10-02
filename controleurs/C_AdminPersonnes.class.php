@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * Description of C_AdminPersonnes
  * CRUD Personnes
@@ -33,22 +31,25 @@ class C_AdminPersonnes extends C_ControleurGenerique {
     }
     
     //validation de création d'utilisateur 
-    function validationcreerPersonne(){
+    function validationCreerPersonne(){  
         
-        //$this->vue->titreVue = "Validation cr&eacute;ation de l'utilisateur";
+        //$this->vue->titreVue = "Validation cr&eacute;ation de l'utilisateur";     
+        //$utilisateur->setId($id) = $utilisateur->getId('IDSPECIALITE', 'SPECIALITE', 'IDSPECIALITE', $_POST["option"]);
         
+
        
-       // $utilisateur->setId($id) = $utilisateur->getId('IDSPECIALITE', 'SPECIALITE', 'IDSPECIALITE', $_POST["option"]);
-      
-        $role = new M_Role(rechercheIdRole($_POST['role']), rechercheIdRole($_POST['role']), $_POST["role"] );
+        // Mémoriser la liste des spécialités disponibles
+        $daoRole = new M_DaoRole();
+        $daoRole->connecter();
+        
+        $role = $daoRole->getOneById($_POST['role']);
         $specialite = $_POST["option"];
         $civilite = $_POST["civilite"];  
         $nom = $_POST["nom"];
         $prenom = $_POST["prenom"];
         $numTel = $_POST["tel"];
         $mail = $_POST["mail"];
-        $mobile = $_POST["telP"];
-        
+        $mobile = $_POST["telP"];       
         $etudes = $_POST["etudes"];
         $formation = $_POST["formation"];
         //$utilisateur->set = $_POST["entreprise1"];
@@ -56,17 +57,22 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $login = $_POST["login"];
         $mdp = sha1($_POST["mdp"]);
           
-        $utilisateur = new M_Personne($id, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp );
+        $utilisateur = new M_Personne(999, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp );
         
-        $ok = insert($utilisateur);
+        $daoPersonne = new M_DaoPersonne();
+        $daoPersonne->setPdo($daoRole->getPdo());
+        $ok = $daoPersonne->insert($utilisateur);
     
       
         if ($ok) {
-            $this->vue->message = "Utilisateur cr&eacute;&eacute;";
+            //$this->vue->message = "Utilisateur cr&eacute;&eacute;";
+            echo 'ca marche';
         } else {
-            $this->vue->message = "Echec de l ajout de l utilisateur".$msg;
+            echo ' ça marche pas';
+            //$this->vue->message = "Echec de l ajout de l utilisateur".$msg;
         }
-        $this->vue->afficher();
+        //$this->vue->afficher();
+     
     }
     
 }
