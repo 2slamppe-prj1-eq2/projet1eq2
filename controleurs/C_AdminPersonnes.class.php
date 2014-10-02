@@ -42,7 +42,11 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         // Mémoriser la liste des spécialités disponibles
         
         $role = $daoRole->getOneById(filter_input(INPUT_POST, 'role'));
-        $specialite = filter_input(INPUT_POST, 'option');
+        
+        $daoSpecialite = new M_DaoSpecialite();
+        $daoSpecialite->setPdo($daoRole->getPdo());
+        
+        $specialite = $daoSpecialite->getOneById(filter_input(INPUT_POST, 'option'));
         $civilite = filter_input(INPUT_POST, 'civilite');  
         $nom = filter_input(INPUT_POST, 'nom');
         $prenom = filter_input(INPUT_POST, 'prenom');
@@ -59,7 +63,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
           
         $utilisateur = new M_Personne(999, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp );
         $daoPersonne = new M_DaoPersonne();
-        $daoPersonne->setPdo($daoRole->getPdo());
+        $daoPersonne->setPdo($daoSpecialite->getPdo());
         $ok = $daoPersonne->insert($utilisateur);
     
       

@@ -48,7 +48,13 @@ class M_DaoPersonne extends M_DaoGenerique {
         } else {
             $idRole = 0; // "Autre" (simple visiteur)
         }
+        if (!is_null($objetMetier->getSpecialite())) {
+            $idSpecialite = $objetMetier->getSpecialite()->getId();
+        } else {
+            $idSpecialite = 0; // "Autre" (simple visiteur)
+        }
         $retour = array(
+            ':idSpecialite' => $idSpecialite, 
             ':idRole' => $idRole,
             ':civilite' => $objetMetier->getCivilite(),
             ':nom' => $objetMetier->getNom(),
@@ -177,10 +183,10 @@ class M_DaoPersonne extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "INSERT INTO $this->nomTable (";
-            $sql .= "CIVILITE,IDROLE,NOM,PRENOM,NUM_TEL,ADRESSE_MAIL,NUM_TEL_MOBILE,";
+            $sql .= "IDSPECIALITE, CIVILITE,IDROLE,NOM,PRENOM,NUM_TEL,ADRESSE_MAIL,NUM_TEL_MOBILE,";
             $sql .= "ETUDES,FORMATION,LOGINUTILISATEUR,MDPUTILISATEUR)  ";
             $sql .= "VALUES (";
-            $sql .= ":civilite, :idRole, :nom, :prenom, :numTel, :mail, :mobile, ";
+            $sql .= ":idSpecialite ,:civilite, :idRole, :nom, :prenom, :numTel, :mail, :mobile, ";
             $sql .= ":etudes, :formation, :login, :mdp)";
 //            var_dump($sql);
             // préparer la requête PDO
