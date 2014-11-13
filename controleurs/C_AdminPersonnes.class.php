@@ -60,22 +60,67 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         
         $login = filter_input(INPUT_POST, 'login');
         $mdp = sha1(filter_input(INPUT_POST, 'mdp'));
-          
-        $utilisateur = new M_Personne(999, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp );
+        
         $daoPersonne = new M_DaoPersonne();
         $daoPersonne->setPdo($daoSpecialite->getPdo());
-        $ok = $daoPersonne->insert($utilisateur);
-    
-      
-        if ($ok) {
-            //$this->vue->message = "Utilisateur cr&eacute;&eacute;";
-            header('Location: ?controleur=AdminPersonnes&action=creerPersonne');
-        } else {
-            echo ' ça marche pas';
-            //$this->vue->message = "Echec de l ajout de l utilisateur".$msg;
+        MaSession::demarrer();
+        if(!isset($_SESSION['verifLogin'])) {
+                  $_SESSION['verifLogin']= true ;
         }
-        //$this->vue->afficher();
-     
+        if(!isset($_SESSION['verifMail'])) {
+                  $_SESSION['verifMail']= true ;
+        }
+        if(!($daoPersonne->verifierDoublonLogin($login))){
+            //echo "Ce login existe déjà";
+            $_SESSION['verifLogin']=false;
+            $ctrl = new C_AdminPersonnes;
+            $ctrl->creerPersonne();
+            
+        }else{
+            if(!($daoPersonne->verifierDoublonMail($login))){
+            //echo "Ce login existe déjà";
+            $_SESSION['verifMail']=false;
+            $ctrl = new C_AdminPersonnes;
+            $ctrl->creerPersonne();
+            }else{
+                $_SESSION['verifMail']=true;
+                $_SESSION['verifLogin']=true;
+                $utilisateur = new M_Personne(999, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp );
+
+
+
+
+                $ok = $daoPersonne->insert($utilisateur);
+
+
+                if ($ok) {
+                    //$this->vue->message = "Utilisateur cr&eacute;&eacute;";
+                    header('Location: ?controleur=AdminPersonnes&action=creerPersonne');
+                } else {
+                    echo ' ça marche pas';
+                    //$this->vue->message = "Echec de l ajout de l utilisateur".$msg;
+                }
+                //$this->vue->afficher();
+            }
+        }
     }
+    
+    //fonction qui affiche la liste des stages dans la page liste des stages
+    function afficheListeStage (){
+        
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+        $this->vue-> ecrireDonnee('titreVue', 'Liste des Stages');
+        // ... depuis la BDD 
+        $daoListeDesStage = new M_DaoListeStage;
+        $daoListeDesStage->connecter();
+        $listeStage = $daoListeDesStage->getAll();
+        $this->vue->ecrireDonnee('listeStage', $listeStage);            
+        $this->vue->ecrireDonnee('centre', "../vues/includes/adminPersonnes/centreListeStage.inc.php");
+               
+        $this->vue->afficher();
+    }
+    
+    
+    
     
 }

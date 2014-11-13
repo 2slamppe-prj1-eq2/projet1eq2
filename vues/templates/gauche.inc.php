@@ -30,7 +30,7 @@
             echo "<li><a href=\".?controleur=utilisateur&action=MajEntreprise\">-M.A.J entreprise</a></li>";
             echo "<hr>";
             echo "<li><a href=\".?controleur=utilisateur&action=ajoutStage\">-Ajouter un stage</a></li>";
-            echo "<li><a href=\".?controleur=utilisateur&action=afficheListeStage\">-Liste des stages</a></li>";
+            echo "<li><a href=\".?controleur=adminPersonnes&action=afficheListeStage\">-Liste des stages</a></li>";
             echo "<hr>";
         }
         ?>

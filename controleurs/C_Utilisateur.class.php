@@ -73,6 +73,17 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->afficher();
     }
 
+    // Fonction d'affichage d'une liste de stage
+    function afficheListeStage(){
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+        $this->vue->ecrireDonnee('titreVue', 'Liste des Stages');
+        $this->vue->ecrireDonnee('loginAuthentification',MaSession::get('login'));       
+        $this->vue->ecrireDonnee('centre', "../vues/includes/adminPersonnes/centreListeStage.inc.php");
+               
+        $this->vue->afficher();
+    }
+    
+    
 }
 
 ?>

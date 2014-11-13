@@ -158,3 +158,20 @@ fieldset{
     
 }
 
+#tabListeStage{
+    border-style: none; 
+}
+
+th{
+    border-style: inset; 
+    background-color: gainsboro ;
+    font-size: 9px;
+
+}
+
+td{
+    border-style: inset; 
+    background-color: gainsboro ;
+    font-size: 9px;
+
+}

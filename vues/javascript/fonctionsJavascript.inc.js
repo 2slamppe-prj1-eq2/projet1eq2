@@ -43,21 +43,21 @@ function valider()
 {
     var ok = 1;
 
-    if (document.getElementById('nom').value == "")
+    if (document.getElementById('nom').value === "")
     {
         alert("Veuillez indiquer votre nom.");
         ok = 0;
         document.getElementById('nom').focus();
         return false;
     }
-    if (document.getElementById('prenom').value == "")
+    if (document.getElementById('prenom').value === "")
     {
         alert("Veuillez indiquer votre prenom.");
         ok = 0;
         document.getElementById('prenom').focus();
         return false;
     }
-    if (document.getElementById('tel').value == "")
+    if (document.getElementById('tel').value === "")
     {
         alert("Veuillez indiquer votre téléphone.");
         ok = 0;
@@ -93,7 +93,7 @@ function valider()
         document.getElementById('tel').focus();
         return false;
     }
-    if (document.getElementById('mail').value == "")
+    if (document.getElementById('mail').value === "")
     {
         alert("Veuillez indiquer votre adresse email.");
         ok = 0;
@@ -108,14 +108,14 @@ function valider()
         document.getElementById('mail').focus();
         return false;
     }
-    if (document.getElementById('login').value == "")
+    if (document.getElementById('login').value === "")
     {
         alert("Veuillez indiquer votre login.");
         ok = 0;
         document.getElementById('login').focus();
         return false;
     }
-    if (document.getElementById('mdp').value == "")
+    if (document.getElementById('mdp').value === "")
     {
         alert("Veuillez indiquer votre mot de passe.");
         ok = 0;
@@ -129,7 +129,7 @@ function valider()
         document.getElementById('mdp').focus();
         return false;
     }
-    if (document.getElementById('mdp2').value == "")
+    if (document.getElementById('mdp2').value === "")
     {
         alert("Veuillez indiquer votre vérification de mot de passe.");
         ok = 0;
@@ -143,15 +143,19 @@ function valider()
         document.getElementById('mdp2').focus();
         return false;
     }
-    if ((document.getElementById('mdp').value) != (document.getElementById('mdp2').value))
+    if ((document.getElementById('mdp').value) !== (document.getElementById('mdp2').value))
     {
         alert("Vos mots de passes sont différents.");
         ok = 0;
         document.getElementById('mdp').focus();
         return false;
     }
-
-    if (ok == 1) {
+    
+    if (alert("Opération Réussie")){
+        return true;
+    }
+    
+    if (ok === 1) {
 
         document.submit();
 
@@ -164,14 +168,14 @@ function validerE()
     var ok = 1;
 
 
-    if (document.getElementById('nom').value == "")
+    if (document.getElementById('nom').value === "")
     {
         alert("Veuillez indiquer le nom de l'entreprise.");
         ok = 0;
         document.getElementById('nom').focus();
         return false;
     }
-    if (document.getElementById('ville').value == "")
+    if (document.getElementById('ville').value === "")
     {
         alert("Veuillez indiquer la ville de l'entreprise.");
         ok = 0;
@@ -179,14 +183,14 @@ function validerE()
         return false;
     }
 
-    if (document.getElementById('ads').value == "")
+    if (document.getElementById('ads').value === "")
     {
         alert("Veuillez indiquer l'adresse l'entreprise.");
         ok = 0;
         document.getElementById('ads').focus();
         return false;
     }
-    if (document.getElementById('cp').value == "")
+    if (document.getElementById('cp').value === "")
     {
         alert("Veuillez indiquer le code postal.");
         ok = 0;
@@ -207,7 +211,7 @@ function validerE()
         document.getElementById('cp').focus();
         return false;
     }
-    if (document.getElementById('tel').value == "")
+    if (document.getElementById('tel').value === "")
     {
         alert("Veuillez indiquer le téléphone de l'entreprise.");
         ok = 0;
@@ -228,14 +232,14 @@ function validerE()
         document.getElementById('tel').focus();
         return false;
     }
-    if (document.getElementById('fj').value == "")
+    if (document.getElementById('fj').value === "")
     {
         alert("Veuillez indiquer sa forme juridique.");
         ok = 0;
         document.getElementById('fj').focus();
         return false;
     }
-    if (ok == 1) {
+    if (ok === 1) {
 
         document.submit();
 

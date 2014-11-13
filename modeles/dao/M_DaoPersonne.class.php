@@ -234,7 +234,51 @@ class M_DaoPersonne extends M_DaoGenerique {
         }
         return $retour;
     }
-
+    
+        /**
+     * verifierDoublonLogin
+     * @param string $login
+     * @return boolean 
+     */
+    function verifierDoublonLogin($login) {
+        $retour = false;
+        try {
+            $sql = "SELECT * FROM $this->nomTable WHERE LOGINUTILISATEUR=:login ";
+            $stmt = $this->pdo->prepare($sql);
+            if ($stmt->execute(array(':login' => $login))) {
+                if( ($test = $stmt->fetch(PDO::FETCH_ASSOC))== true ){
+                    $retour = false ; 
+                }else{
+                    $retour = true ;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+        /**
+     * verifierDoublonLogin
+     * @param string $login
+     * @return boolean 
+     */
+    function verifierDoublonMail($mail) {
+        $retour = false;
+        try {
+            $sql = "SELECT * FROM $this->nomTable WHERE LOGINUTILISATEUR=:mail ";
+            $stmt = $this->pdo->prepare($sql);
+            if ($stmt->execute(array(':mail' => $mail))) {
+                if( ($test = $stmt->fetch(PDO::FETCH_ASSOC))== true ){
+                    $retour = false ; 
+                }else{
+                    $retour = true ;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
 }
 
 
