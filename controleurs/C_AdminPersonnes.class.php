@@ -114,7 +114,8 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $daoListeDesStage = new M_DaoListeStage;
         $daoListeDesStage->connecter();
         $listeStage = $daoListeDesStage->getAll();
-        $this->vue->ecrireDonnee('listeStage', $listeStage);            
+        $this->vue->ecrireDonnee('listeStage', $listeStage); 
+        $this->vue->ecrireDonnee('loginAuthentification',MaSession::get('login')); 
         $this->vue->ecrireDonnee('centre', "../vues/includes/adminPersonnes/centreListeStage.inc.php");
                
         $this->vue->afficher();
